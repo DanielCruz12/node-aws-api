@@ -9,7 +9,8 @@
     "dev": "nodemon src/index.ts",
     "lint": "eslint . --ext .js,.mjs --fix --ignore-path .gitignore",
     "format": "prettier .  --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
   "author": "",
