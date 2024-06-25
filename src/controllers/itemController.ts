@@ -1,29 +1,30 @@
 import { Request, Response } from "express"
 import { handleHttp } from "../utils/errorHandle"
-import { findAllItems, findItem, updateOneItem, create } from "../services/itemService"
+import { findAllItems, findItem, updateOneItem, create, deleteItem } from "../services/itemService"
 
 export const getItems = async (req: Request, res: Response) => {
     try {
-        await findAllItems()
-        res.status(200).json({ data: { message: "hi" } })
+        const items = await findAllItems()
+        res.status(200).json(items)
     } catch (error) {
         handleHttp(res, error)
     }
 }
 
-export const createItem = async (req: Request, res: Response) => {
+export const createItem = async ({ body }: Request, res: Response) => {
     try {
-        await create()
-        res.status(200).json({ data: { message: "hi" } })
+        const itemCreated = await create(body)
+        res.status(200).json(itemCreated)
     } catch (error) {
         handleHttp(res, error)
     }
 }
 
 export const getItem = async (req: Request, res: Response) => {
+    const { id } = req.params
     try {
-        await findItem()
-        res.status(200).json({ data: { message: "hi" } })
+        const itemFound = await findItem(id)
+        res.status(200).json(itemFound)
     } catch (error) {
         handleHttp(res, error)
     }
@@ -31,20 +32,21 @@ export const getItem = async (req: Request, res: Response) => {
 
 export const updateItem = async (req: Request, res: Response) => {
     const { id } = req.params
-
+    const data = req.body
     try {
-        await updateOneItem(id)
+        const itemUpdated = await updateOneItem(data, id)
+        res.status(200).json(itemUpdated)
+
     } catch (error) {
         handleHttp(res, error)
     }
 }
 
-export const deleteItemById = (req: Request, res: Response) => {
+export const deleteItemById = async (req: Request, res: Response) => {
     const { id } = req.params
-
     try {
-        console.log(id)
-        res.status(200).json({ data: { message: "hi" } })
+        const itemDeleted = await deleteItem(id)
+        res.status(200).json(itemDeleted)
     } catch (error) {
         handleHttp(res, error)
     }
