@@ -1,17 +1,29 @@
-import express from "express";
-import cors from "cors";
-import dotenv from 'dotenv'
-import { router } from "./v1/routes/itemRoute";
-import dbConnect from "./config/mongo";
-const app = express()
-dotenv.config()
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import dbConnect from './config/mongo';
+import { itemRoutes } from './v1/routes/itemRoute';
+import { authRoutes } from './v1/routes/authRoutes';
 
-const PORT = process.env.PORT || 3001
+//* Load environment variables from .env file
+dotenv.config();
 
-app.use(express.json())
-app.use(cors())
+//* Create an Express application
+const app = express();
+
+//* Middleware to parse JSON bodies
+app.use(express.json());
+
+app.use(cors());
+app.use("/", itemRoutes);
+app.use("/auth", authRoutes);
+
+//* Connect to the MongoDB database and start the server
 dbConnect().then(() => {
-    console.log("running")
-})
-app.use(router)
-app.listen(PORT, () => { console.log(`Running on port ${PORT}`) })
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Database connected successfully ✅✅ on port ${PORT}`);
+    });
+}).catch(err => {
+    console.error('Database connection failed: ❌', err);
+});

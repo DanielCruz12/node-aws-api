@@ -22,7 +22,7 @@ export const updateOneItem = async (data: Item, id: string) => {
     return itemUpdated
 }
 
-export const deleteItem = (id: string) => {
-    const itemDeleted = itemModel.findOneAndDelete({ _id: id })
+export const deleteItem = async (id: string) => {
+    const itemDeleted = await itemModel.findOneAndDelete({ _id: id })
     return itemDeleted
 }
