@@ -5,6 +5,7 @@ import { findAllItems, findItem, updateOneItem, create, deleteItem } from "../se
 export const getItems = async (req: Request, res: Response) => {
     try {
         const items = await findAllItems()
+        console.table(items)
         res.status(200).json(items)
     } catch (error) {
         handleHttp(res, error)
@@ -50,5 +51,4 @@ export const deleteItemById = async (req: Request, res: Response) => {
     } catch (error) {
         handleHttp(res, error)
     }
-
 }

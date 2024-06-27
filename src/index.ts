@@ -2,9 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import dbConnect from './config/mongo';
-import { itemRoutes } from './v1/routes/itemRoute';
-import { authRoutes } from './v1/routes/authRoutes';
 
+import { apiRoutes } from './v1/routes'
 //* Load environment variables from .env file
 dotenv.config();
 
@@ -15,8 +14,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
-app.use("/", itemRoutes);
-app.use("/auth", authRoutes);
+app.use('/api/v1', apiRoutes);
+
 
 //* Connect to the MongoDB database and start the server
 dbConnect().then(() => {
