@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.mjs --fix --ignore-path .gitignore",
     "format": "prettier .  --write",
     "prepare": "husky install",
-    "start": "node dist/server.js",
+    "start": "node dist/index.js",
     "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
