@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsnd --respawn --clear src/index.ts",
+    "dev": "nodemon src/index.ts",
     "lint": "eslint . --ext .js,.mjs --fix --ignore-path .gitignore",
     "format": "prettier .  --write",
     "prepare": "husky install",
